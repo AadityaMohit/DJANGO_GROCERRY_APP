@@ -1,0 +1,370 @@
+{% extends "base.html" %}
+{% block body %}
+
+<style>
+ 
+    .fruit-modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        justify-content: center;
+        align-items: center;
+        z-index: 1;
+    }
+
+    .modal-content {
+        background-color: #fff;
+        padding: 20px;
+        border-radius: 8px;
+        max-width: 400px;
+        margin: 0 auto;
+    }
+
+    .close-btn {
+        background-color: #333;
+        color: #fff;
+        padding: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: #fff;
+        border-radius: 8px;
+        margin: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+    }
+
+    .content:hover {
+        transform: scale(1.02);
+    }
+
+
+    .fruits-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .fruit-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .fruit-item:hover {
+        background-color: #f9f9f9;
+    }
+
+   
+    .fruit-details {
+        display: none;
+        max-width: 600px;
+        margin-top: 20px;
+        padding: 20px;
+        background-color: #f4f4f4;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .order-btn {
+        background-color: #ff9900;
+        color: #fff;
+        padding: 5px;
+        margin-top: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .order-btn:hover {
+        background-color: #333;
+    }
+
+    .add-to-cart-btn {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 5px;
+        margin-top: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .add-to-cart-btn:hover {
+        background-color: #45a049;
+    }
+
+    footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+    }
+
+    .cart-container {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        background-color: #fff;
+        border-top: 1px solid #ddd;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+        z-index: 2;
+    }
+
+    .cart-item {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .checkout-btn {
+        background-color: #ff9900;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    .close-cart-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #333;
+        transition: color 0.3s;
+    }
+
+    .close-cart-btn:hover {
+        color: #070000;
+    }
+    .checkout-btn:hover {
+        background-color: #333;
+    }
+    .fruit-image-container {
+        max-width: 150px; 
+        max-height: 150px; 
+        overflow: hidden;
+    }
+    
+    .fruit-image {
+        width: 100%; 
+        height: auto; 
+    }
+    
+    @media screen and (max-width: 600px) {
+        .fruit-card {
+            width: 100%; 
+            margin-bottom: 20px; 
+        }
+    
+        .fruit-showcase {
+            flex-direction: column; 
+        }
+    }
+    
+    .delete-btn {
+        background-color: #e74c3c;
+        color: #fff;
+        padding: 5px;
+        margin-left: 5px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .delete-btn:hover {
+        background-color: #c0392b;
+    }
+       .toggle-cart-btn {
+        background-color: #3498db;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+        transition: background-color 0.3s;
+    }
+
+    .toggle-cart-btn:hover {
+        background-color: #389407;
+    }
+</style>
+
+<div class="content">
+    <h2>Fresh Veggies</h2>
+    <button class="toggle-cart-btn" onclick="toggleCart()">Toggle Cart</button>
+   
+    <div class="fruit-showcase" style="display: flex; justify-content: space-around;">
+        <div class="fruit-card" onclick="openFruitModal('Apple')">
+            <h3>Tomato</h3>
+            <div class="fruit-image-container">
+                <img src="/static/tomato.jpeg" alt="Apple Image" class="fruit-image">
+            </div>
+            <p>Delicious and nutritious Tomato.</p>
+
+            <button class="order-btn" onclick="orderFruit('Apple')">Order Now</button>
+            <button class="add-to-cart-btn" onclick="addToCart('Apple')">Add to Cart</button>
+        </div>
+
+        <div class="fruit-card" onclick="openFruitModal('Banana')">
+            <h3>Brocolli</h3>
+            <div class="fruit-image-container">
+                <img src="/static/brocolli.jpeg" alt="Apple Image" class="fruit-image">
+            </div>
+            <p>GReen Brocolli.</p>
+            <button class="order-btn" onclick="orderFruit('Banana')">Order Now</button>
+            <button class="add-to-cart-btn" onclick="addToCart('Banana')">Add to Cart</button>
+        </div>
+
+    </div>
+
+  
+    <div class="advertisement">
+        <h2>Special Offer!</h2>
+        <p>Get 10% off on your first order. Use code: SPECIAL10</p>
+    </div>
+</div>
+
+
+<div id="fruitModal" class="fruit-modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeFruitModal()">X</span>
+        <h2 id="modalFruitName"></h2>
+        <p id="modalFruitDescription"></p>
+        <button class="order-btn" onclick="orderFruitInModal()">Order Now</button>
+        <button class="add-to-cart-btn" onclick="addToCartInModal()">Add to Cart</button>
+    </div>
+</div>
+
+<!-- Shopping cart -->
+<div class="cart-container">
+    <h2>Shopping Cart</h2>
+    <button class="close-cart-btn" onclick="closeCart()">×</button>
+    <div id="cartItems"></div>
+    <button class="checkout-btn" onclick="checkout()">Proceed to Checkout</button>
+</div>
+
+
+
+<script>
+    var cart = [];
+
+    function openFruitModal(fruitName) {
+        var modal = document.getElementById("fruitModal");
+        var modalFruitName = document.getElementById("modalFruitName");
+        var modalFruitDescription = document.getElementById("modalFruitDescription");
+
+        
+        switch (fruitName) {
+            case 'Apple':
+                modalFruitName.textContent = "Tomato";
+                modalFruitDescription.textContent = "REd fresh tomato.";
+                break;
+            case 'Banana':
+                modalFruitName.textContent = "Brocoli";
+                modalFruitDescription.textContent = "Healthy Green brocoli.";
+                break;
+           
+        }
+
+        
+        modal.style.display = "flex";
+    }
+
+    function closeFruitModal() {
+        var modal = document.getElementById("fruitModal");
+        
+        modal.style.display = "none";
+    }
+
+    function orderFruitInModal() {
+        var fruitName = document.getElementById("modalFruitName").textContent;
+    
+        alert('Order placed for ' + fruitName);
+    }
+
+    function addToCartInModal() {
+        var fruitName = document.getElementById("modalFruitName").textContent;
+    
+        cart.push(fruitName);
+        updateCartDisplay();
+        alert(fruitName + ' added to cart');
+    }
+
+    function updateCartDisplay() {
+        var cartItemsContainer = document.getElementById("cartItems");
+        cartItemsContainer.innerHTML = "";
+
+        cart.forEach(function (item, index) {
+            var cartItem = document.createElement("div");
+            cartItem.className = "cart-item";
+
+          
+            var itemText = document.createElement("span");
+            itemText.textContent = item;
+            cartItem.appendChild(itemText);
+
+           
+            var deleteBtn = document.createElement("button");
+            deleteBtn.className = "delete-btn";
+            deleteBtn.textContent = "Delete";
+            deleteBtn.onclick = function () {
+                deleteItem(index);
+            };
+            cartItem.appendChild(deleteBtn);
+
+            cartItemsContainer.appendChild(cartItem);
+        });
+    }
+
+    function deleteItem(index) {
+      
+        cart.splice(index, 1);
+    
+        updateCartDisplay();
+    }
+    document.addEventListener("DOMContentLoaded", function() {
+       
+        var cartContainer = document.querySelector('.cart-container');
+        cartContainer.style.display = 'none';
+    });
+
+    function toggleCart() {
+        var cartContainer = document.querySelector('.cart-container');
+
+        cartContainer.style.display = (cartContainer.style.display === 'none' || cartContainer.style.display === '') ? 'block' : 'none';
+    }
+    function closeCart() {
+        cartDiv.style.display = 'none';
+    }
+</script>
+
+
+
+{% endblock body %}

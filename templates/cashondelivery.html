@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+    .payment-container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        text-align: center;
+    }
+    
+    .button-container {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+    
+    button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+    
+    button:hover {
+        background-color: #21c547;
+    }
+    
+    .payment-container img {
+        max-width: 100%;
+        height: auto;
+        margin-top: 10px; /* Adjust margin as needed */
+    }
+
+    .quantity-input {
+        width: 50px;
+        text-align: center;
+        margin-bottom: 10px;
+    }
+</style>
+
+<div class="payment-container">
+    <h2>Payment Information</h2>
+    <p>Please pay the delivery person in cash upon receipt of your order.</p>
+    <img src="{{ request.GET.image }}" alt="Food Item Image">
+    <h3>{{ request.GET.name }}</h3>
+    <p><b>Price: ₹<span id="price">{{ request.GET.price }}</span></b></p>
+    <!-- <label for="quantity">Quantity:</label> -->
+    <div>
+        <!-- <button id="minus-btn">-</button>
+        <input type="number" id="quantity" class="quantity-input" value="1" min="1" max="5">
+        <button id="plus-btn">+</button> -->
+    </div>
+  
+    <div class="button-container">
+        <form id="addToCartForm" action="{% url 'addtocart' %}" method="post">
+            {% csrf_token %}
+            <input type="hidden" id="price_input" name="price" value="{{ request.GET.price }}" readonly>
+            <input type="hidden" id="name" name="name" value="{{ request.GET.name }}" readonly>
+            <input type="hidden" id="username" name="username" value="{{ request.user }}" readonly>
+            <input type="hidden" name="updated_price" id="updated_price" value="{{ updated_price }}">
+
+            <button type="submit">Add to Cart</button>
+        </form>
+        <a href="{% url 'cashpay' %}"><button>Confirm Payment</button></a>
+    </div>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const quantityInput = document.getElementById('quantity');
+        const priceElement = document.getElementById('price');
+        const priceInput = document.getElementById('price_input');
+        const minusButton = document.getElementById('minus-btn');
+        const plusButton = document.getElementById('plus-btn');
+        let originalQuantity = 1;
+        let originalPrice = parseFloat(priceInput.value);
+        
+        minusButton.addEventListener('click', function() {
+            decrementQuantity();
+        });
+        
+        plusButton.addEventListener('click', function() {
+            incrementQuantity();
+        });
+        
+        function incrementQuantity() {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity < 5) {
+                quantity++;
+                originalQuantity = quantity;
+                updatePrice(quantity);
+            }
+        }
+        
+        function decrementQuantity() {
+            let quantity = parseInt(quantityInput.value);
+            if (quantity > 1) {
+                quantity--;
+                originalQuantity = quantity;
+                updatePrice(quantity);
+            }
+        }
+        
+        function updatePrice(quantity) {
+            quantityInput.value = quantity;
+            const totalPrice = quantity * originalPrice;
+            priceElement.textContent = totalPrice.toFixed(2);
+            priceInput.value = totalPrice.toFixed(2);
+            
+            // Set the updated price in the hidden input field
+            document.getElementById('updated_price').value = totalPrice.toFixed(2);
+        }
+        
+    });
+</script>
+
+{% endblock body %}

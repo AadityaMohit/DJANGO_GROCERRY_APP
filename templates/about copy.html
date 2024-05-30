@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block body %}
+  
+<style>
+    .additional-info {
+        display: none;
+        margin-top: 20px;
+        opacity: 0; 
+        transition: opacity 1s ease-in-out;
+    }
+
+    .show-info-btn {
+        background-color: #ff9900;
+        color: #fff;
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        border-radius: 4px;
+        transition: background-color 0.3s;
+    }
+
+    .show-info-btn:hover {
+        background-color: #333;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-around;
+            background-color: #444;
+            padding: 10px;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: #fff;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: #ff9900;
+        }
+        
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 8px;
+            margin: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .content:hover {
+            transform: scale(1.02);
+        }
+
+       
+        .about-section {
+            max-width: 800px;
+            text-align: justify;
+            margin-top: 20px;
+        }
+        
+        .about-section h2 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .about-section p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+    
+    <div class="content">
+        <h2>About Us</h2>
+        <div class="about-section">
+            <p>Welcome to Your Grocery Store, your one-stop destination for quality groceries. We are committed to providing fresh, affordable, and diverse products to meet your daily needs.</p>
+            
+            <p>Our store is dedicated to sourcing products locally and ensuring the highest standards of quality. Whether you are looking for fresh produce, pantry staples, or specialty items, we have a wide range of options to cater to your preferences.</p>
+            
+            <p>At Your Grocery Store, we prioritize customer satisfaction, and our friendly and knowledgeable staff is always ready to assist you. We strive to create a pleasant shopping experience for our customers and build lasting relationships within the community.</p>
+            
+            <p>Thank you for choosing Your Grocery Store. We look forward to serving you and being your trusted grocery partner.</p>
+        </div>
+    </div>
+
+ <div class="additional-info" id="additionalInfo">
+    <h3>Our Mission</h3>
+    <p>We aim to provide high-quality, locally sourced products to our customers while fostering a sense of community and sustainability.</p>
+    <h3>Community Involvement</h3>
+    <p>We actively participate in local events and support community initiatives to give back to the neighborhoods we serve.</p>
+</div>
+
+<button class="show-info-btn" onclick="toggleAdditionalInfo()">Show Additional Information</button>
+</div>
+</div>
+
+<script>
+
+function toggleAdditionalInfo() {
+    var additionalInfo = document.getElementById("additionalInfo");
+    additionalInfo.style.display = additionalInfo.style.display === "none" ? "block" : "none";
+    additionalInfo.style.opacity = additionalInfo.style.opacity === "0" ? "1" : "0";
+    
+
+    if (additionalInfo.style.display === "block") {
+        additionalInfo.scrollIntoView({ behavior: "smooth" });
+    }
+}
+
+
+function changeBackgroundColor() {
+    document.body.style.backgroundColor = getRandomColor();
+}
+
+
+function getRandomColor() {
+    var letters = "0123456789ABCDEF";
+    var color = "#";
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+</script>
+
+  
+
+
+{% endblock body %}

@@ -1,0 +1,449 @@
+{% extends "base.html" %}
+
+{% block body %}
+
+<style>
+  .setimage {
+    text-align: center;
+    animation: fadeIn 1.5s ease-in-out forwards;
+    height: 30vw;
+    width: 96vw;
+    flex: 1;
+    background-image: url('/static/img2.jpeg'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center;
+    align-items:center;
+    color: white; 
+    padding: 20px; 
+    overflow: hidden;
+}
+
+.company-name {
+    font-size: 2em; 
+    font-weight: bold;
+    text-transform: uppercase; 
+    letter-spacing: 2px; 
+    margin-top: 10px; 
+    animation: fadeIn 3.5s ease-in-out forwards;
+}
+.close-cart-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  color: #333;
+  transition: color 0.3s;
+}
+
+.close-cart-btn:hover {
+  color: #070000;
+}
+@media screen and (max-width: 600px) {
+    .setimage {
+        height: 80vw;
+        width: 90vw;
+    }
+    .offer-container {
+      flex-direction: row; 
+      justify-content: center;
+  }
+  @keyframes popOut {
+    0% {
+      transform: scale(0);
+    }
+    80% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .offer-card {
+      width: 45%; 
+      margin: 10px; 
+  }
+
+  .offer-card img {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+  }
+}
+@media screen and (max-width: 400px) {
+  .offer-card {
+    width: 90%; 
+ 
+}
+
+}
+.offer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  
+}
+
+.offer-card {
+  width: 200px;
+  margin: 20px;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.offer-card img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+.offer-card h3 {
+  margin-top: 10px;
+  color: #333;
+}
+
+.offer-card p {
+  color: #555;
+}
+.details {
+  text-align: center;
+  background-color: #f8f8f8;
+  padding: 30px;
+}
+
+.details h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.details img {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin: 20px 0;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.details p {
+  color: #555;
+  font-size: 16px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+footer {
+  background-color: #333;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  animation: fadeIn 1.5s ease-in-out forwards;
+}
+
+footer p {
+  margin: 5px 0;
+}
+
+footer p:first-child {
+  margin: 0;
+  font-size: 18px;
+}
+#link {
+  display: flex;
+  justify-content: space-between;
+  
+  padding: 10px;
+}
+.lleft img, .lright img {
+  width: 70%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 15px;
+  animation: moveInfinite 0.99s infinite;
+}
+
+.lleft, .lright {
+  width: 48%;
+  padding: 20px;
+  border: 1px solid #e1e1e1;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.lleft:hover, .lright:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.lleft h2, .lright h2 {
+  color: #333;
+  font-size: 24px;
+  margin-bottom: 15px;
+}
+
+.lleft h3, .lright h3 {
+  color: #555;
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+
+.lleft p, .lright p {
+  color: #777;
+  font-size: 16px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.lleft button, .lright button {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+}
+
+.lleft button:hover, .lright button:hover {
+  background-color: #2980b9;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+button {
+  padding: 12px 20px;
+  font-size: 18px;
+  cursor: pointer;
+  background-color: #df5c5c;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+button:hover {
+  background-color: #34e13c;
+}
+@keyframes moveInfinite {
+  0% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(10px); 
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+.category {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 20px;
+  border: 2px solid #ddd;
+}
+
+.category-item {
+  background-color: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 200px;
+}
+
+.category-item img {
+  max-width: 100%;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.category-item button {
+  background-color: #4caf50;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 4px;
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  
+}
+
+.category-item button:hover {
+  background-color: #45a049;
+}
+</style>
+
+<div class="setimage">
+
+  <div class="company-name">EAT HEALTHY</div>
+  
+  
+</div>
+<div class="offer-container">
+  <div class="offer-card">
+    <img src="/static/oi1.jpeg" alt="Offer 1">
+    <h3>Special Discount</h3>
+    <p>Get exclusive discounts on selected items. Limited time offer!</p>
+    <button id="myButton">Click me</button>
+  </div>
+
+  <div class="offer-card">
+    <img src="/static/oi2.jpeg" alt="Offer 2">
+    <h3>Buy One Get One Free</h3>
+    <p>Enjoy our Buy One Get One Free offer on a variety of products.</p>
+    <button id="myButton">Click me</button>
+  </div>
+  
+  <div class="offer-card">
+    <img src="/static/oi2.jpeg" alt="Offer 3">
+    <h3>Flash Sale</h3>
+    <p>Don't miss out on our exciting flash sale. Grab your favorites now!</p>
+    <button id="myButton">Click me</button>
+  </div>
+  
+  
+  
+</div>
+<h3>CATEOGRIES</h3>
+<div class="category">
+  <div class="category-item">
+      <img src="/static/OILL.JPEG" alt="Category 1">
+      <h3>112</h3>
+      <p>Description of Category 1.</p>
+    <button>  <a class="active" href="/about">Home1</a></button>
+  </div>
+  
+  <div class="category-item">
+      <img src="/static/SPI.JPEG" alt="Category 2">
+      <h3>Category 2</h3>
+      <p>Description of Category 2.</p>
+      
+      <button>  <a class="active" href="/home">Home</a></button>
+  </div>
+  
+<div class="category">
+  <div class="category-item">
+      <img src="/static/GHEE.JPEG" alt="Category 1">
+      <h3>Category 1</h3>
+      <p>Description of Category 1.</p>
+      <button>  <a class="active" href="/oil">Home oil</a></button>
+  </div>
+  
+  <div class="category-item">
+      <img src="/static/spices.jpeg" alt="Category 2">
+      <h3>Category 2</h3>
+      <p>Description of Category 2.</p>
+      <button>  <a class="active" href="/home">Home</a></button>
+  </div>
+  
+<div class="category">
+  <div class="category-item">
+      <img src="/static/veg.jpeg" alt="Category 1">
+      <h3>Category 1</h3>
+      <p>Description of Category 1.</p>
+      <button>  <a class="active" href="/home">Home</a></button>
+  </div>
+  
+  <div class="category-item">
+      <img src="/static/CEREALS.jpEg" alt="Category 2">
+      <h3>Category 2</h3>
+      <p>Description of Category 2.</p>
+      <button>  <a class="active" href="/home">Home</a></button>
+  </div>
+  
+<div class="category">
+  <div class="category-item">
+      <img src="/static/FR.JPEG" alt="Category 1">
+      <h3>Category 1</h3>
+      <p>Description of Category 1.</p>
+      <button  href="/login">HOME</button>
+  </div>
+  
+  <div class="category-item">
+      <img src="/static/DAL.JPEG" alt="Category 2">
+      <h3>Category 2</h3>
+      <p>Description of Category 2.</p>
+      <button>  <a class="active" href="/home">Home</a></button>
+  </div>
+  
+  <!-- Add more category items as needed -->
+</div>
+
+<div id="link">
+  <div class="lleft">
+   
+      <h2>Hurrry Up ! </h2>
+      <img src="/static/sale2.jpeg" alt="Left Image">
+      <h3>Get the deal NOw 🤫🫨</h3>
+      <p>This is the content on the left side.</p>
+      <button>  <a class="active" href="/home">Home</a></button>
+  </div>
+  <div class="lright">
+    
+      <h2>Final sales</h2>
+      <img src="/static/sale.jpeg" alt="Left Image">
+      <h3>Grab or Gone 😁</h3>
+      <p>Grab it now before the stock ends.</p>
+      <button>  <a class="active" href="/home">Home</a></button>
+  </div>
+</div>
+<div class="details">
+  <h2>Welcome to Our Grocery Store</h2>
+
+  <img src="/static/fruit.jpeg" alt="Fruit Image">
+  <p>Indulge in the vibrant and mouth-watering experience of our exquisite selection of fresh fruits at "EAT HEALTHY" grocery store. Immerse yourself in the natural sweetness and nutritional goodness of locally sourced fruits that promise to elevate your well-being. Our carefully curated assortment includes a diverse array of flavors, colors, and textures, providing a delightful treat for every palate.From succulent berries bursting with antioxidants to juicy citrus fruits brimming with Vitamin C, our fruit section is a treasure trove of health benefits. We take pride in delivering only the freshest produce, ensuring that each bite is a burst of freshness and goodness. Our commitment to quality extends to supporting local farmers and promoting sustainable agriculture practices.</p>
+
+  <img src="/static/veg.jpeg" alt="Vegetable Image">
+  <p>Discover the freshness of farm-to-table vegetables. Our selection includes vibrant greens and colorful bell peppers, bringing you the finest produce.
+    Embark on a culinary adventure with the finest selection of farm-fresh vegetables at "EAT HEALTHY" grocery store. Elevate your meals to new heights with our premium assortment of vibrant greens, crisp veggies, and colorful bell peppers that redefine the art of cooking. We take pride in delivering vegetables at the peak of their freshness, ensuring that each bite is a celebration of flavor, nutrition, and culinary excellence.
+    
+    Our commitment to quality and sustainability is reflected in every leafy green and every root vegetable. Sourced directly from local farms, our vegetables are grown with care and passion, promoting a healthier lifestyle and supporting our local farming community.
+    
+    </p>
+
+  <img src="/static/fd.jpeg" alt="Online Delivery Image">
+  <p>Experience the convenience of online delivery. We deliver your grocery essentials right to your doorstep, ensuring a hassle-free shopping experience.Experience the epitome of convenience with our door-to-door delivery service at "EAT HEALTHY" grocery store. We understand the value of your time and the importance of a hassle-free shopping experience, which is why we bring the grocery store directly to your doorstep.
+
+   
+    </p>
+
+  <img src="/static/ps.jpeg" alt="Pickup from Store Image">
+  <p>Prefer to pick up your groceries? Choose our convenient pickup option. Order online and collect your items from our store at your convenience.Discover the ultimate flexibility in grocery shopping with our convenient Pickup from Store service at "EAT HEALTHY." Whether you prefer to browse online or have a curated list, our pickup option offers a seamless and time-saving solution for those who appreciate hands-on selection.
+
+    With Pickup from Store, you have the freedom to choose the products you love, from farm-fresh fruits and vegetables to pantry staples and specialty items. Simply place your order online through our user-friendly website or mobile app, and we'll ensure that your items are ready for pickup at your preferred time.</p>
+</div>
+<footer>
+  <p>EAT HEALTHY Grocery Store</p>
+  <p>Contact us:</p>
+  <p>Email: info@eathealthygrocery.com</p>
+  <p>Phone: +1 (123) 456-7890</p>
+</footer>
+{% endblock body %}

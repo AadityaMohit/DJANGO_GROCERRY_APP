@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+
+    
+    .signup-container {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+    }
+    
+    h1 {
+        color: #333;
+    }
+    
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .input-group {
+        margin: 15px 0;
+    }
+    
+    label {
+        margin-bottom: 5px;
+        display: block;
+        color: #333;
+    }
+    
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+    }
+    
+    button {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    #signupStatus {
+        margin-top: 20px;
+        color: #ff3333;
+    }
+    
+
+
+
+</style>
+
+<div class="signup-container">
+    <h1>Create an Account</h1>
+    <form id="signupForm">
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="button" onclick="performSignup()">Sign Up</button>
+        <p id="signupStatus"></p>
+    </form>
+</div>
+
+<script>
+    function performSignup() {
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var signupStatus = document.getElementById("signupStatus");
+    
+        // Check if the fields are filled (Add more robust validation as needed)
+        if (!username || !email || !password) {
+            signupStatus.textContent = "Please fill in all the fields.";
+            signupStatus.style.color = "#ff3333";
+        } else {
+            // Add logic for signup (Replace with your backend logic)
+            signupStatus.textContent = "Signup successful! Welcome, " + username + "!";
+            signupStatus.style.color = "#4CAF50";
+        }
+    }
+    
+</script>
+
+{% endblock body %}

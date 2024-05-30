@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+    .payment-container {
+        text-align: center;
+        margin: 50px;
+    }
+
+    .payment-form {
+        max-width: 400px;
+        margin: auto;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0;
+        text-align: left;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="payment-container">
+    <h1>Wallet Payment</h1>
+    <div class="payment-form">
+        <form  action="{% url 'wallet' %}" method="post">
+            {% csrf_token %}
+            <label for="walletType">Select Wallet:</label>
+            <select id="walletType" name="walletType" required>
+                <option value="" disabled selected>Select your wallet</option>
+                <option value="wallet1">Wallet 1</option>
+                <option value="wallet2">Wallet 2</option>
+                <!-- Add more wallet options as needed -->
+            </select>
+
+            <label for="walletUsername">Wallet Username:</label>
+            <input type="text" id="walletUsername" name="name" placeholder="Enter wallet username" required>
+
+            <label for="walletPassword">Wallet Password:</label>
+            <input type="password" id="walletPassword" name="password" placeholder="Enter wallet password" required>
+
+            <button type="submit">Pay with Wallet</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function processWalletPayment() {
+        // Placeholder for actual wallet payment processing logic
+        var walletType = document.getElementById('walletType').value;
+        var walletUsername = document.getElementById('walletUsername').value;
+        var walletPassword = document.getElementById('walletPassword').value;
+
+        // Validate and process the payment on the server side
+        console.log("Processing wallet payment for Wallet: " + walletType +
+            ", Username: " + walletUsername +
+            ", Password: " + walletPassword);
+
+        // Prevent form submission for this example
+        return false;
+    }
+</script>
+
+{% endblock body %}

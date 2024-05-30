@@ -1,0 +1,105 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+    .payment-container {
+        text-align: center;
+        margin: 50px;
+    }
+    
+    .payment-methods {
+        display: flex;
+        flex-wrap: wrap; /* Allow items to wrap to the next line */
+        justify-content: center;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .payment-method {
+        background-color: white;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.2s ease-in-out;
+        flex: 1; /* Distribute available space equally among items */
+        max-width: 200px; /* Set a maximum width for better responsiveness */
+    }
+    
+    .payment-method:hover {
+        transform: scale(1.05);
+    }
+    
+    img {
+        width: 110px;
+        height: 120px;
+        margin-bottom: 10px;
+    }
+    
+    .pay-now-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+        margin-top: 20px;
+        a{
+            text-decoration: none;
+            color: inherit;
+        }
+    }
+    
+    .pay-now-btn:hover {
+        background-color: #45a049;
+    }
+    
+    /* Media query for small screens */
+    @media (max-width: 600px) {
+        .payment-method {
+            max-width: 100%; /* Take up full width on small screens */
+        }
+    }
+</style>
+
+<div class="payment-container">
+    <h1>Select Payment Method</h1>
+    <div class="payment-methods">
+        <div class="payment-method" id="creditCardBtn">
+            <img src="/static/card.jpeg" alt="Credit Card Icon">
+            
+            <button type="submit" class="pay-now-btn"><a href="{% url 'card' %}">Debit Card</a></button>
+            
+        </div>
+        
+        <div class="payment-method" id="debitCardBtn">
+            <img src="/static/card.jpeg" alt="Debit Card Icon">
+            
+            <button type="submit"class="pay-now-btn" ><a href="{% url 'credit' %}">Creit Card</a></button>
+        </div>
+        
+        <div class="payment-method" id="netBankingBtn">
+            <img src="/static/netb.jpeg" alt="Net Banking Icon">
+            
+            <button type="submit"class="pay-now-btn" ><a href="{% url 'netb' %}">Pay By NetBanking</a></button>
+        </div>
+        
+        <div class="payment-method" id="walletBtn">
+            <img src="/static/wallet.jpeg" alt="Wallet Icon">
+            
+            <button type="submit"class="pay-now-btn" ><a href="{% url 'wallet' %}">Pay By Wallet</a></button>
+        </div>
+        
+        <div class="payment-method" id="upiBtn">
+            <img src="/static/gpay.jpeg" alt="UPI Icon">
+            
+            <button type="submit"class="pay-now-btn" ><a href="{% url 'upi' %}">Pay By UPI</a></button>
+        </div>
+    </div>
+    
+    
+</div>
+</form>
+
+{% endblock body %}

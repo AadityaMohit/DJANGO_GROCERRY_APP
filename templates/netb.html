@@ -1,0 +1,77 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+    .payment-container {
+        text-align: center;
+        margin: 50px;
+    }
+
+    .payment-form {
+        max-width: 400px;
+        margin: auto;
+    }
+
+    label {
+        display: block;
+        margin: 10px 0;
+        text-align: left;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="payment-container">
+    <h1>Net Banking Payment</h1>
+    <div class="payment-form">
+        <form  action="{% url 'netb' %}" method="post">
+            {% csrf_token %}
+
+            <label for="accountNumber">Account Number:</label>
+            <input type="text" id="accountNumber" name="name" placeholder="Enter account number" required>
+
+            <label for="ifscCode">IFSC Code:</label>
+            <input type="text" id="ifscCode" name="number" placeholder="Enter IFSC code" required>
+
+            <button type="submit">Pay with Net Banking</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    function processNetBankingPayment() {
+        // Placeholder for actual net banking payment processing logic
+        var bankName = document.getElementById('bankName').value;
+        var accountNumber = document.getElementById('accountNumber').value;
+        var ifscCode = document.getElementById('ifscCode').value;
+
+        // Validate and process the payment on the server side
+        console.log("Processing net banking payment for Bank: " + bankName +
+            ", Account Number: " + accountNumber +
+            ", IFSC Code: " + ifscCode);
+
+        // Prevent form submission for this example
+        return false;
+    }
+</script>
+
+{% endblock body %}

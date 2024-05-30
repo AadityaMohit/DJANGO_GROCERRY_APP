@@ -1,0 +1,110 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+    .order-details {
+        margin: 50px auto;
+        padding: 20px;
+        max-width: 600px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        background-color: #f9f9f9;
+    }
+
+    h2 {
+        color: #333;
+    }
+
+    p {
+        margin: 10px 0;
+        color: #666;
+    }
+
+    .form-input {
+        margin-bottom: 15px;
+    }
+
+    .form-input label {
+        display: block;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .form-input input[type="text"],
+    .form-input input[type="email"],
+    .form-input textarea {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+    .button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .order-button {
+        padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        text-decoration: none;
+    }
+
+    .order-button:hover {
+        background-color: #0056b3;
+    }
+</style><div class="order-details">
+    <h2>Order Details</h2>
+    <!-- <p><strong>Product Name:</strong> {{ request.GET.product_name }}</p>
+    <p><strong>Price:</strong> ₹{{ request.GET.price }}</p> -->
+
+    <form action="{% url 'ordernow' %}" method="post">
+        {% csrf_token %}
+        <div class="form-input">
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="username" value="{{ request.user }}" readonly required>
+        </div>
+        <div class="form-input">
+            <label for="name">Product_Name:</label>
+            <input type="text" id="name" name="productname" value=" {{ request.GET.product_name }}" readonly required>
+        </div>
+        <div class="form-input">
+            <label for="name">Price:</label>
+            <input type="text" id="name" name="price" value="{{ request.GET.price }}" readonly required>
+        </div>
+        
+        <div class="form-input">
+            <label for="email">Your Email:</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" readonly required>
+        </div>
+        <div class="form-input">
+            <label for="address">Shipping Address:</label>
+            <textarea id="address" name="address" rows="4" required></textarea>
+        </div>
+        <div class="form-input">
+            <label for="address">Shipping state:</label>
+            <textarea id="address" name="state" rows="4" required></textarea>
+        </div>
+        <div class="form-input">
+            <label for="address">Shipping city:</label>
+            <textarea id="address" name="city" rows="4" required></textarea>
+        </div>
+        <div class="form-input">
+            <label for="address">Shipping landmark:</label>
+            <textarea id="address" name="landmark" rows="4" required></textarea>
+        </div>
+        <div class="form-input">
+            <label for="address">Shipping phone:</label>
+            <textarea id="address" name="phone" rows="4" required></textarea>
+        </div>
+        <div class="button-container">
+            <button type="submit" class="order-button">Confirm Order</button>
+        </div>
+    </form>
+</div>
+
+{% endblock body %}

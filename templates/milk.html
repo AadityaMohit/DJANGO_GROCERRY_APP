@@ -1,0 +1,422 @@
+{% extends "base.html" %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-gJFLBqb+kw9wlHHWlhtvKs/MgM5IgaVwET4Xw+qh3/dvgM1jwL1IRqtrle6iiFFs3rXXY3mq+qx2Ie12bFy7xQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Frijole&family=Metal+Mania&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frijole&family=Metal+Mania&family=Port+Lligat+Slab&family=Varela&display=swap" rel="stylesheet">
+<style>
+  /* CSS Styles */
+.content a {
+    text-decoration: none;
+    color: black;
+}
+.fruit-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.fruit-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 25%; /* Set width to 25% for 4 cards in a row */
+    margin-bottom: 20px; /* Add some space between cards */
+    margin-right: 20px; /* Add some space between cards horizontally */
+}
+
+@media screen and (max-width: 1200px) {
+    .fruit-card {
+        width: 33.33%; /* Set width to 33.33% for 3 cards in a row */
+        margin-right: 20px; /* Add some space between cards horizontally */
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .fruit-card {
+        width: 50%; /* Set width to 50% for 2 cards in a row */
+        margin-right: 20px; /* Add some space between cards horizontally */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .fruit-card {
+        width: 50%; /* Set width to 100% for 1 card in a row */
+        margin-right: 0; /* No need for space between cards horizontally */
+    }
+}
+
+
+.fruit-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+     /* Updated to column direction */
+}
+.fruit-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Add some space between fruit description and price */
+    margin-bottom: 20px; /* Add some space below the fruit description */
+}
+.fruit-description p{
+    margin-left: 15px;
+}
+
+
+
+.fruit-name {
+    margin-bottom: 5px;
+    margin-right: 5px; /* Add some space between name and rating */
+}
+
+.fruit-rating {
+    background-color: green;
+    color: white;
+    padding: 0px 5px; /* Adjusted padding */
+    font-size: 10px; /* Adjusted font size */
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-left: 68px;
+    font-weight: 400;
+}
+
+.fruit-price {
+    margin-bottom: 10px;
+}
+
+.add-to-cart-btn {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #ff7d00;
+}
+
+.fruit-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.fruit-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.advertisement {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    font-family: "Frijole", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.advertisement p {
+    margin: 0;
+    white-space: nowrap;
+    animation: moveText 40s linear infinite;
+    font-family: "Metal Mania", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.advertisement h2 {
+    animation: squeezeText 4s ease-in-out infinite;
+    margin: 0;
+}
+
+/* Cart styling */
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.cart-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.close-cart-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.close-cart-btn:hover {
+    color: #070000;
+}
+
+@keyframes moveText {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes moveText {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}#mohit {
+    width: 100%;
+    height: 400px; /* Adjust height as needed */
+    overflow: hidden;
+    position: relative;
+ 
+}
+
+.advertisement-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(100%);
+    animation: slideImages 7s infinite; /* Adjust animation duration as needed */
+}
+
+.advertisement-image:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.advertisement-image:nth-child(2) {
+    animation-delay: 3s; /* Adjust delay for each image */
+}
+
+.advertisement-image:nth-child(3) {
+    animation-delay: 7s; /* Adjust delay for each image */
+}
+
+@keyframes slideImages {
+    0% {
+        transform: translateX(100%);
+    }
+    20% {
+        transform: translateX(0%);
+    }
+    80% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-100%);
+    }
+} .advertisement-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 24px;
+    text-align: center;
+    width: 80%;
+}@media screen and (max-width: 600px) {
+    /* Adjust the link styles for product name and price on small screens */
+    .fruit-card .fruit-name,
+    .fruit-card .fruit-price {
+        color: #333 !important; /* Set the color to black or any desired color */
+        text-decoration: none !important; /* Remove underline */
+    }
+}
+
+</style><div id="mohit">
+    <img class="advertisement-image" src="/static/mi1.jpeg" alt="Vegetable Advertisement">
+    <img class="advertisement-image" src="/static/mi2.jpeg" alt="Vegetable Advertisement">
+    <img class="advertisement-image" src="/static/mi3.jpeg" alt="Vegetable Advertisement">
+    <!-- Add more images as needed -->
+</div><div class="advertisement-text" style="background-color: rgba(0, 0, 0, 0.5); padding: 20px;">
+    <p>Special Offer: Get 20% off on all vegetables this week!</p>
+</div>
+</div>
+<div class="content">
+    <h2 style="color: #333;">Milk</h2>
+
+    <div class="fruit-showcase">
+        <!-- Apple Card -->
+      <!-- Apple Card -->
+      <a href="{% url 'cashondelivery' %}?name=Milk&price=30&image=/static/Milk.jpeg" class="fruit-card">
+        <div class="fruit-image-container">
+        <img src="/static/Milk.jpeg" alt="Apple Image" class="fruit-image">
+    </div>
+    <div class="fruit-details">
+        <h3 class="fruit-name">Milk</h3>
+        <div class="fruit-rating">
+            <p> 
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i> 4.0⭐
+            </p>
+        </div>
+    </div>
+    <div class="fruit-description">
+       <pre></pre> <p>Farmed Milk</p>
+        <p class="fruit-price">Price: 30 rupees/<b>Kg</b></p>
+  
+    </div>
+</a>
+
+        <!-- Banana Card -->
+        <a href="{% url 'cashondelivery' %}?name=ChocoMilk&price=1000&image=/static/choc.jpeg" class="fruit-card">
+            <div class="fruit-image-container">
+                <img src="/static/choc.jpeg" alt="Banana Image" class="fruit-image">
+            </div>
+            <div class="fruit-details">
+                <h3 class="fruit-name">ChocoMilk</h3>
+                <div class="fruit-rating">
+                    <p> 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i> 4.2⭐
+                    </p>
+                </div>
+            </div><div class="fruit-description">
+                <p> ChocoMilk</p>
+                <p class="fruit-price">Price: 100 rupees/<b>Kg</b></p>
+            </div>
+        </a>
+
+        <!-- Orange Card -->
+        <a href="{% url 'cashondelivery' %}?name=Milk&price=100&image=/static/MILK.jpeg" class="fruit-card">
+            <div class="fruit-image-container">
+                <img src="/static/freshm.jpeg" alt="Orange Image" class="fruit-image">
+            </div>
+            <div class="fruit-details">
+                <h3 class="fruit-name">Dairy </h3>
+                <div class="fruit-rating">
+                    <p> 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i> 4.8⭐
+                    </p>
+                </div>
+            </div><div class="fruit-description">
+                <p>Fresh Dairy </p>
+                <p class="fruit-price">Price: 40 rupees/<b>Kg</b></p>
+            </div>
+        </a>
+
+      
+        <!-- Grapes Card -->
+        
+    </div>
+
+    <!-- Special Offer -->
+    <div class="advertisement">
+        <h2>Special Offer!</h2>
+        <p>Get 10% off on your first order. Use code: SPECIAL10</p>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <h3>Your Cart</h3>
+            <ul id="cartItems"></ul>
+            <button class="close-cart-btn" onclick="closeCart()">×</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var cart = {};
+
+    function addToCart(fruitName) {
+        if (cart[fruitName]) {
+            cart[fruitName]++;
+        } else {
+            cart[fruitName] = 1;
+        }
+
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        var cartItemsElement = document.getElementById("cartItems");
+        cartItemsElement.innerHTML = "";
+
+        for (var fruit in cart) {
+            var listItem = document.createElement("li");
+            listItem.textContent = `${cart[fruit]} x ${fruit}`;
+            cartItemsElement.appendChild(listItem);
+        }
+    }
+
+    function openCart() {
+        document.getElementById("cartModal").style.display = "flex";
+    }
+
+    function closeCart() {
+        document.getElementById("cartModal").style.display = "none";
+    }
+
+    function showAddedToCartPopup(fruitName) {
+        var confirmation = confirm(`${fruitName} added to cart! View your cart?`);
+
+        if (confirmation) {
+            openCart();
+        }
+    }
+
+    function addToCart(fruitName) {
+        if (cart[fruitName]) {
+            cart[fruitName]++;
+        } else {
+            cart[fruitName] = 1;
+        }
+
+        updateCartUI();
+        showAddedToCartPopup(fruitName);
+    }
+</script>
+
+<!-- ... Existing code ... -->
+
+{% endblock body %}

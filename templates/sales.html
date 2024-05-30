@@ -1,0 +1,244 @@
+{% extends "base.html" %}
+{% block body %}
+<Style>
+    header {
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding: 15px;
+      }
+  
+      #items-container {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 20px;
+      }
+  
+      .item {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 10px;
+        width: 200px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+      }
+  
+      .item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      }
+  
+      .item img {
+        width: 100%;
+        border-radius: 8px;
+        margin-bottom: 10px;
+      }
+  
+      #details-container {
+        display: none;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 1000;
+      }
+  
+      #details-content {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+  
+      #close-details-btn {
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #333;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      button {
+        padding: 12px 20px;
+        font-size: 18px;
+        cursor: pointer;
+        background-color: #0d9f21;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        a {
+          color: inherit;
+          text-decoration: none;
+          }
+      }
+      button:hover {
+        background-color: #34e13c;
+      }
+</style>
+
+
+<header>
+    <h1>Sale Items</h1>
+  </header>
+  
+  <div id="items-container">
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 1</h3>
+      <p>20% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 10</h3>
+      <p>20% Off</p>
+      <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 1</h3>
+      <p>20% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 1</h3>
+      <p>20% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 1</h3>
+      <p>20% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 1</h3>
+      <p>20% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 1</h3>
+      <p>20% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 1', '20% Off', 'item1.jpg')">
+      <img src="item1.jpg" alt="Item 1">
+      <h3>Item 1</h3>
+      <p>20% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <div class="item" onclick="showDetails('Item 2', '30% Off', 'item2.jpg')">
+      <img src="item2.jpg" alt="Item 2">
+      <h3>Item 2</h3>
+      <p>30% Off</p>
+        <button>  <a class="active" href="/sales">Dive to sale</a></button>
+    </div>
+  
+    <!-- Add more items as needed -->
+  </div>
+  
+  <div id="details-container">
+    <div id="details-content">
+      <button id="close-details-btn" onclick="closeDetails()">X</button>
+      <h2 id="details-title"></h2>
+      <p id="details-discount"></p>
+      <img id="details-image" src="" alt="">
+    </div>
+  </div>
+  
+  <script>
+    function showDetails(title, discount, image) {
+      document.getElementById('details-title').innerText = title;
+      document.getElementById('details-discount').innerText = discount;
+      document.getElementById('details-image').src = image;
+  
+      document.getElementById('details-container').style.display = 'flex';
+    }
+  
+    function closeDetails() {
+      document.getElementById('details-container').style.display = 'none';
+    }
+
+
+
+
+
+
+
+
+
+
+
+{% endblock body %}

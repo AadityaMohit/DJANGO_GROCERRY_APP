@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+    /* Container styling */
+    .cart-container {
+        margin-top: 50px;
+        font-family: Arial, sans-serif;
+    }
+
+    /* List item styling */
+    .cart-item {
+        list-style: none;
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        background-color: #f9f9f9;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .cart-container h2 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    .cart-item h3 {
+        margin: 0;
+        color: #333;
+        font-size: 18px;
+    }
+
+    .cart-item p {
+        margin: 5px 0;
+        color: #666;
+        font-size: 14px;
+    }
+
+    /* Delete button styling */
+    .delete-button {
+        padding: 5px 10px;
+        background-color: #dc3545;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 14px;
+        margin-right: 5px;
+    }
+
+    .delete-button:hover {
+        background-color: #c82333;
+    }
+
+    /* Order button styling */
+    .order-now-button {
+        padding: 5px 10px;
+        background-color: #28a745;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        font-size: 14px;
+    }
+
+    .order-now-button:hover {
+        background-color: #218838;
+    }
+
+    /* Align buttons */
+    .button-container {
+        display: flex;
+        justify-content: space-between; /* Align buttons horizontally */
+        align-items: center; /* Center align items vertically */
+        margin-top: 5px;
+    }
+
+</style>
+
+<div class="cart-container">
+    <h2>Cart Items</h2>
+    <!-- Debug message to check if cart items exist -->
+    <h3>{% if cart_items %} Your Cart items {% else %} Your Cart is empty {% endif %}</h3>
+    <ul>
+        {% for cart_item in cart_items %}
+        <li class="cart-item">
+            <h3>{{ cart_item.name }}</h3>
+            <p><b>Price:</b> ₹{{ cart_item.price }}</p>
+            <p><b>Username:</b> {{ cart_item.username }}</p>
+            <div class="button-container">
+                <form action="{% url 'delete_item' cart_item.id %}" method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="delete-button">Delete</button>
+                </form>
+                <a href="{% url 'ordernow' %}?product_name={{ cart_item.name }}&price={{ cart_item.price }}" class="order-now-button">Order Now</a>
+            </div>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock body %}

@@ -1,0 +1,414 @@
+{% extends "base.html" %}
+{% block body %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-gJFLBqb+kw9wlHHWlhtvKs/MgM5IgaVwET4Xw+qh3/dvgM1jwL1IRqtrle6iiFFs3rXXY3mq+qx2Ie12bFy7xQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link href="https://fonts.googleapis.com/css2?family=Frijole&family=Metal+Mania&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frijole&family=Metal+Mania&family=Port+Lligat+Slab&family=Varela&display=swap" rel="stylesheet">
+<style>
+  /* CSS Styles */
+.content {
+    a {
+        text-decoration: none;
+        color: black;
+    }
+}
+.fruit-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.fruit-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 25%; /* Set width to 25% for 4 cards in a row */
+    margin-bottom: 20px; /* Add some space between cards */
+    margin-right: 20px; /* Add some space between cards horizontally */
+}
+
+@media screen and (max-width: 1200px) {
+    .fruit-card {
+        width: 33.33%; /* Set width to 33.33% for 3 cards in a row */
+        margin-right: 20px; /* Add some space between cards horizontally */
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .fruit-card {
+        width: 50%; /* Set width to 50% for 2 cards in a row */
+        margin-right: 20px; /* Add some space between cards horizontally */
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .fruit-card {
+        width: 50%; /* Set width to 100% for 1 card in a row */
+        margin-right: 0; /* No need for space between cards horizontally */
+    }
+}
+
+
+.fruit-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+     /* Updated to column direction */
+}
+.fruit-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* Add some space between fruit description and price */
+    margin-bottom: 20px; /* Add some space below the fruit description */
+}
+.fruit-description p{
+    margin-left: 15px;
+}
+
+
+
+.fruit-name {
+    margin-bottom: 5px;
+    margin-right: 5px; /* Add some space between name and rating */
+}
+
+.fruit-rating {
+    background-color: green;
+    color: white;
+    padding: 0px 5px; /* Adjusted padding */
+    font-size: 10px; /* Adjusted font size */
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-left: 68px;
+    font-weight: 400;
+}
+
+.fruit-price {
+    margin-bottom: 10px;
+}
+
+.add-to-cart-btn {
+    background-color: #ff9900;
+    color: #fff;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #ff7d00;
+}
+
+.fruit-image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    margin-bottom: 10px;
+}
+
+.fruit-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.advertisement {
+    margin-top: 20px;
+    padding: 15px;
+    background-color: #4CAF50;
+    color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    position: relative;
+    font-family: "Frijole", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.advertisement p {
+    margin: 0;
+    white-space: nowrap;
+    animation: moveText 40s linear infinite;
+    font-family: "Metal Mania", system-ui;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.advertisement h2 {
+    animation: squeezeText 4s ease-in-out infinite;
+    margin: 0;
+}
+
+/* Cart styling */
+.cart-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+}
+
+.cart-content {
+    position: relative;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    width: 300px;
+    text-align: center;
+}
+
+.close-cart-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    font-size: 40px;
+    cursor: pointer;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.close-cart-btn:hover {
+    color: #070000;
+}
+
+@keyframes moveText {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+@keyframes moveText {
+    from {
+        transform: translateX(100%);
+    }
+    to {
+        transform: translateX(-100%);
+    }
+}
+
+/* Add Detergents section styles */
+
+.detergent-showcase {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+.detergent-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    width: 25%;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+    .detergent-card {
+        width: 33.33%;
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .detergent-card {
+        width: 50%;
+        margin-right: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .detergent-card {
+        width: 50%;
+        margin-right: 0;
+    }
+}
+
+.detergent-details {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.detergent-description {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.detergent-description p{
+    margin-left: 15px;
+}
+
+.detergent-name {
+    margin-bottom: 5px;
+    margin-right: 5px;
+}
+
+.detergent-rating {
+    background-color: green;
+    color: white;
+    padding: 0px 5px;
+    font-size: 10px;
+    border-radius: 8px;
+    margin-bottom: 5px;
+    margin-left: 68px;
+    font-weight: 400;
+}
+
+.detergent-price {
+    margin-bottom: 10px;
+}@media screen and (max-width: 600px) {
+    .content a {
+        text-decoration: none;
+        color: black;
+    }
+}
+</style>
+<div class="content">
+    <h2 style="color: #333;">Detergents</h2>
+
+    <div class="detergent-showcase">
+        <!-- Detergent 1 Card -->
+        <a href="{% url 'cashondelivery' %}?lang={{ request.LANGUAGE_CODE }}&name=Detergent&price=30&image=/static/d1.jpeg" class="detergent-card">
+            <div class="fruit-image-container">
+                <img src="/static/d1.jpeg" alt="Detergent 1 Image" class="fruit-image">
+            </div>
+            <div class="detergent-details">
+                <h3 class="detergent-name">Detergent</h3>
+                <div class="detergent-rating">
+                    <p> 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i> 4.0⭐
+                    </p>
+                </div>
+            </div>
+            <div class="detergent-description">
+                <p>Farmed Detergent</p>
+                <p class="detergent-price">Price: 30 rupees/<b>Kg</b></p>
+            </div>
+        </a>
+
+        <!-- Detergent 2 Card -->
+        <a href="{% url 'cashondelivery' %}?lang={{ request.LANGUAGE_CODE }}&name=Detergent&price=30&image=/static/d1.jpeg" class="detergent-card">
+            <div class="fruit-image-container">
+                <img src="/static/d2.jpeg" alt="Detergent 2 Image" class="fruit-image">
+            </div>
+            <div class="detergent-details">
+                <h3 class="detergent-name">Detergent 2</h3>
+                <div class="detergent-rating">
+                    <p> 
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i> 4.2⭐
+                    </p>
+                </div>
+            </div>
+            <div class="detergent-description">
+                <p>Detergent 2</p>
+                <p class="detergent-price">Price: 80 rupees/<b>Kg</b></p>
+            </div>
+        </a>
+        
+        <!-- Add more detergent cards here if needed -->
+        
+    </div>
+
+    <!-- Special Offer -->
+    <div class="advertisement">
+        <h2>Special Offer!</h2>
+        <p>Get 10% off on your first order. Use code: SPECIAL10</p>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="cart-modal" id="cartModal">
+        <div class="cart-content">
+            <h3>Your Cart</h3>
+            <ul id="cartItems"></ul>
+            <button class="close-cart-btn" onclick="closeCart()">×</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    var cart = {};
+
+    function addToCart(detergentName) {
+        if (cart[detergentName]) {
+            cart[detergentName]++;
+        } else {
+            cart[detergentName] = 1;
+        }
+
+        updateCartUI();
+    }
+
+    function updateCartUI() {
+        var cartItemsElement = document.getElementById("cartItems");
+        cartItemsElement.innerHTML = "";
+
+        for (var detergent in cart) {
+            var listItem = document.createElement("li");
+            listItem.textContent = `${cart[detergent]} x ${detergent}`;
+            cartItemsElement.appendChild(listItem);
+        }
+    }
+
+    function openCart() {
+        document.getElementById("cartModal").style.display = "flex";
+    }
+
+    function closeCart() {
+        document.getElementById("cartModal").style.display = "none";
+    }
+
+    function showAddedToCartPopup(detergentName) {
+        var confirmation = confirm(`${detergentName} added to cart! View your cart?`);
+
+        if (confirmation) {
+            openCart();
+        }
+    }
+
+    function addToCart(detergentName) {
+        if (cart[detergentName]) {
+            cart[detergentName]++;
+        } else {
+            cart[detergentName] = 1;
+        }
+
+        updateCartUI();
+        showAddedToCartPopup(detergentName);
+    }
+</script>
+
+<!-- ... Existing code ... -->
+
+{% endblock body %}

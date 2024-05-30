@@ -1,0 +1,131 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+    
+
+    .login-container {
+        background-color: rgba(255, 255, 255, 0.8);
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        text-align: center;
+        opacity: 0;
+        transform: translateY(50px);
+        animation: fadeIn 1s forwards;
+    }
+
+    @keyframes fadeIn {
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    h1 {
+        color: #333;
+        margin-bottom: 20px;
+        font-size: 28px;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        transition: transform 0.5s;
+    }
+
+    .input-group {
+        margin: 15px 0;
+    }
+
+    label {
+        margin-bottom: 5px;
+        display: block;
+        color: #333;
+        font-size: 16px;
+    }
+
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        font-size: 16px;
+    }
+
+    button {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        font-size: 18px;
+        margin-top: 20px;
+        transition: background-color 0.3s;
+    }
+
+    button:hover {
+        background-color: #45a049;
+    }
+
+    #loginStatus {
+        margin-top: 20px;
+        color: #ff3333;
+        font-size: 16px;
+    }
+
+    .forgot-password {
+        margin-top: 10px;
+        font-size: 14px;
+        color: #333;
+        text-decoration: underline;
+        cursor: pointer;
+    }
+
+    .forgot-password:hover {
+        color: #4CAF50;
+    }
+</style>
+
+<div class="login-container">
+    <h1>Welcome Back!</h1>
+    <form id="loginForm">
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="button" onclick="performLogin()">Login</button>
+        <p id="loginStatus"></p>
+        <p class="forgot-password" onclick="showForgotPassword()">Forgot Password?</p>
+    </form>
+</div>
+
+<script>
+    function performLogin() {
+        var username = document.getElementById("username").value;
+        var password = document.getElementById("password").value;
+        var loginStatus = document.getElementById("loginStatus");
+
+       
+        if (username === "user" && password === "password") {
+            loginStatus.textContent = "Login successful!";
+            loginStatus.style.color = "#4CAF50";
+        } else {
+            loginStatus.textContent = "Invalid username or password. Please try again.";
+            loginStatus.style.color = "#ff3333";
+        }
+    }
+
+    function showForgotPassword() {
+        var form = document.querySelector('form');
+        form.style.transform = "translateY(-100%)";
+    }
+</script>
+
+{% endblock body %}
+

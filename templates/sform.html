@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block body %}
+<title>Seller Form</title>
+<style>
+    /* Your CSS styles here */
+</style>
+
+<div class="container">
+    <h1>Congratulations your data has been submitted ! Your Product Details</h1>
+    <div class="product-info">
+        <p>Product Name: {{ request.GET.product_name }}</p>
+        <p>Price: {{ request.GET.price }}</p>
+        <p>Description: {{ request.GET.description }}</p>
+        <p>Image:</p>
+        {% if request.GET.image_url %}
+            <img src="{{ request.GET.image_url }}" alt="Product Image">
+        {% else %}
+            <p>No image available</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock body %}

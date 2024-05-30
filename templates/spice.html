@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% block body %}
+    
+<style>
+    /* Basic styling, you can customize it further */
+    .card-container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+
+    .card {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        padding: 10px;
+        width: 200px;
+        text-align: center;
+        margin: 10px;
+        text-decoration: none; /* Added to remove default anchor tag styling */
+        color: inherit; /* Added to inherit parent's color */
+    }
+
+    .card img {
+        max-width: 70%;
+        border-radius: 2px;
+    }
+
+    .card h3 {
+        color: #333;
+    }
+
+    .card p {
+        color: #555;
+    }
+
+    .card button {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 10px 15px;
+        cursor: pointer;
+        border-radius: 4px;
+        margin-top: 10px;
+        transition: background-color 0.3s ease;
+    }
+
+    .card button:hover {
+        background-color: #45a049;
+    }
+
+    .card button a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    /* Media query for smaller screens */
+    @media screen and (max-width: 768px) {
+        .card-container {
+            flex-direction: column;
+            align-items: center;
+        }
+    }
+</style>
+
+<div class="card-container">
+    <a href="{% url 'cashondelivery' %}?lang={{ request.LANGUAGE_CODE }}&name=oil&price=500&image=/static/oil.jpeg" class="card">
+        <img src="/static/oil.JPEG" alt="Card Image">
+        <h3>Fortune Oil</h3>
+        <p><b>Price: 500 rupees</b></p>
+        <p><b>Quantity: 1 Kg</b></p>
+        <button class="add-to-cart-btn">Order Now</button>
+    </a>
+    <a href="{% url 'cashondelivery' %}?lang={{ request.LANGUAGE_CODE }}&name=RedChilli&price=800&image=/static/oi2.jpeg" class="card">
+        <img src="/static/oi2.JPEG" alt="Card Image">
+        <h3>RedChilli Powder</h3>
+        <p>get ready to experience the fire in your toungue</p>
+        <p><b>Price: 900 rupees</b></p>
+        <p><b>Quantity: 1 Kg</b></p>
+        <button class="add-to-cart-btn">Order Now</button>
+    </a>
+    <a href="{% url 'cashondelivery' %}?lang={{ request.LANGUAGE_CODE }}&name=GHEE&price=800&image=/static/GHEE.jpeg" class="card">
+        <img src="/static/GHEE.JPEG" alt="Card Image">
+        <h3>Desi GHEE</h3>
+        <p><b>Price: 800 rupees</b></p>
+        <p><b>Quantity: 1 Kg</b></p>
+        <button class="add-to-cart-btn">Order Now</button>
+    </a>
+</div>
+
+{% endblock body %}

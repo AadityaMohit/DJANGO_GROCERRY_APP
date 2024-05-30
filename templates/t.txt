@@ -1,0 +1,237 @@
+{% extends "base.html" %}
+{% block body %}
+<style>
+
+    .products {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+        padding: 20px;
+    }
+    
+    .product-card {
+        width: 300px;
+        margin: 20px;
+        padding: 15px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        text-align: center;
+        transition: transform 0.3s ease;
+    }
+    
+    .product-card:hover {
+        transform: scale(1.05);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    }
+    
+    .cart-container {
+        position: fixed;
+        bottom: 0;
+        right: 0;
+        width: 100%;
+        max-width: 300px;
+        background-color: #f4f4f4;
+        border-radius: 10px;
+        overflow: hidden;
+        display: none;
+    }
+    
+    .cart {
+        padding: 20px;
+    }
+    
+    .cart h2 {
+        margin-bottom: 10px;
+    }
+    
+    .cartItems li {
+        list-style-type: none;
+        margin-bottom: 10px;
+    }
+    
+    .cart-btn-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+    
+    button {
+        background-color: #4CAF50;
+        color: #fff;
+        padding: 10px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        width: 50%; /* Make the button full-width */
+        margin-bottom: 10px; /* Add margin for spacing */
+        align-items: center;
+        justify-content: center;
+    }
+    
+    button:hover{
+        background-color: rgb(255, 119, 8);
+    }
+   
+    .close-cart-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: none;
+        border: none;
+        font-size: 20px;
+        cursor: pointer;
+        color: #333;
+        transition: color 0.3s;
+    }
+
+    .close-cart-btn:hover {
+        color: #070000;
+    }
+
+    
+    .popup {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background: #333;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 5px;
+        display: none;
+    }
+    .product-card img {
+        max-width: 100%;
+        max-height: 200px;
+        margin-bottom: 10px;
+    }
+    .advertisement {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .advertisement img {
+        max-width: 100%;
+        max-height: 400px;
+        margin-bottom: 10px;
+    }
+</style>
+
+<section class="products" id="products">
+ 
+</section>
+
+<button onclick="toggleCart()">Open Cart 🛒</button>
+
+<div class="cart-container" id="cartContainer">
+    <section class="cart" id="cart">
+        <h2>Your Cart</h2>
+        <ul id="cartItems"></ul>
+        <p>Total: <span id="totalAmount">$0.00</span></p>
+        <div class="cart-btn-container">
+            <button onclick="checkout()">Checkout</button>
+            <button class="close-cart-btn" onclick="closeCart()">×</button>
+        </div>
+    </section>
+</div>
+
+
+<div id="popup" class="popup"></div>
+<section class="advertisement">
+    <h2>Special Offer on Our Fresh Milk!</h2>
+    <p>Discover the goodness of our fresh milk. Limited-time offer - don't miss out!</p>
+    <img src="/static/adve.jpeg" alt="Milk Advertisement">
+    
+</section>
+<script>
+
+    const productsData = [
+    { id: 1, name: 'Fresh Milk', price: 2.99, image: '/static/choc.jpeg' },
+    { id: 2, name: 'Chocolate Milk', price: 3.99, image: '/static/or.jpeg' },
+    { id: 3, name: 'Organic Milk', price: 4.99, image: '/static/freshm.jpeg' },
+];
+
+const productsContainer = document.getElementById('products');
+const cartContainer = document.getElementById('cartItems');
+const totalAmountElement = document.getElementById('totalAmount');
+const cartDiv = document.getElementById('cartContainer');
+const popup = document.getElementById('popup');
+
+    function displayProducts() {
+        productsData.forEach(product => {
+            const productCard = document.createElement('div');
+            productCard.classList.add('product-card');
+            productCard.innerHTML = `
+                <img src="${product.image}" alt="${product.name}" class="product-image">
+                <h3>${product.name}</h3>
+                <p>$${product.price.toFixed(2)}</p>
+                <button onclick="addToCart(${product.id}, '${product.name}', ${product.price}, '${product.image}')">Add to Cart</button>
+            `;
+            productsContainer.appendChild(productCard);
+        });
+    }
+
+
+    // Add product to the cart
+    function addToCart(productId, productName, productPrice, productImage) {
+        const cartItem = document.createElement('li');
+        cartItem.innerHTML = `
+        
+            ${productName} - $${productPrice.toFixed(2)}
+        `;
+        cartContainer.appendChild(cartItem);
+
+        updateTotalAmount();
+        showPopup(`Added to Cart: ${productName}`);
+    }
+
+    // Update total amount in the cart
+    function updateTotalAmount() {
+        let totalAmount = 0;
+        cartContainer.querySelectorAll('li').forEach(item => {
+            totalAmount += parseFloat(item.innerHTML.split('$')[1]);
+        });
+
+        totalAmountElement.textContent = `$${totalAmount.toFixed(2)}`;
+    }
+
+    // Checkout function (dummy, replace it with your actual checkout process)
+    function checkout() {
+        alert('Checkout functionality will be implemented here.');
+    }
+
+    // Toggle cart visibility
+    function toggleCart() {
+        if (cartDiv.style.display === 'none' || cartDiv.style.display === '') {
+            cartDiv.style.display = 'block';
+        } else {
+            cartDiv.style.display = 'none';
+        }
+    }
+
+    // Close cart
+    function closeCart() {
+        cartDiv.style.display = 'none';
+    }
+
+    // Show popup notification
+    function showPopup(message) {
+        popup.textContent = message;
+        popup.style.display = 'block';
+
+        // Hide the popup after 3 seconds
+        setTimeout(() => {
+            popup.style.display = 'none';
+        }, 3000);
+    }
+
+    // Initialize the webpage
+    displayProducts();
+</script>
+{% endblock body %}

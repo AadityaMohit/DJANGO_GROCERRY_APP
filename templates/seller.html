@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% block body %}
+<title>Seller Page</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-image: url('/static/bowl.jpeg'); /* Replace 'background_image.jpg' with your image path */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+    }
+    .container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: rgba(255, 255, 255, 0.8); /* Adjust the background color opacity */
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+    }
+    form {
+        margin-top: 20px;
+    }
+    label {
+        display: block;
+        margin-bottom: 5px;
+        color: #555;
+    }
+    input[type="text"] {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+        font-size: 16px;
+    }
+    button[type="submit"] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+        font-size: 16px;
+    }
+    button[type="submit"]:hover {
+        background-color: #45a049;
+    }
+</style>
+
+<div class="container">
+    <h1>Become A seller</h1>
+    <h2>Seller Page</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" id="username" name="username" value="{{request.user}}" readonly>
+        </div>
+        <label for="product_name">Product Name:</label>
+        <input type="text" id="product_name" name="product_name" required><br>
+        <label for="price">Price:</label>
+        <input type="text" id="price" name="price" required><br>
+        Email:  <input type="email" id="email" name="email" required placeholder="Enter your email here "><br>
+        Description: <textarea name="description" required></textarea><br>
+        Image: <input type="file" name="image" required><br>
+        <!-- Other fields as needed -->
+        <button type="submit">Submit</button>
+    </form>
+</div>
+{% endblock body %}
